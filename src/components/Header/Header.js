@@ -41,12 +41,12 @@ function Header(props) {
         <nav className="navbar navbar-dark bg-primary">
             <div className="header-container">
                 <div className="header-title">
-                    <Link to="/" className="app-name">{props.title || title}</Link>
+                    <Link to="/" className="app-name">{title}</Link>
                 </div>
-                {renderAuthButtons()} {}
+                {renderAuthButtons()}
             </div>
         </nav>
-    )
+    );
 }
 
 export default withRouter(Header);

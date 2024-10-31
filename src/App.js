@@ -15,22 +15,21 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [title, updateTitle] = useState(null);
   const [errorMessage, updateErrorMessage] = useState(null);
   return (
     <Router>
     <div className="App">
-      <Header title={title}/>
+      <Header/>
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/" exact={true}>
-              <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              <HomePage />
             </Route>
             <Route path="/register">
-              <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              <RegistrationForm showError={updateErrorMessage}/>
             </Route>
             <Route path="/login">
-              <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              <LoginForm showError={updateErrorMessage}/>
             </Route>
           </Switch>
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>

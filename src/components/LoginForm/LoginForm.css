@@ -1,7 +1,94 @@
-.login-card {
-    min-height: 60vh;
+.login-form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-form-wrapper {
+    flex: 0 0 60%; /* 60% width for the login form */
+    background-color: #fff; /* White background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding inside the card */
+    margin: auto; /* Center the card */
+}
+
+.animation-container {
+    flex: 0 0 40%; /* 40% width for the animation */
+    background-color: #f8f9fa; /* Light background for the animation area */
+    display: flex; /* Flexbox for centering animations */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    /* Add animation styles or a placeholder for your animation here */
+}
+
+h2 {
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    text-align: center; /* Center the title */
+    color: var(--dark-burgundy);
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form fields */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px; /* Spacing between label and input */
+    color: var(--dark-burgundy);
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold; /* Bold labels */
+}
+
+
+input.form-control {
+    width: 75%;
+
+    border: 1px solid var(--primary-color);
+    border-radius: 4px; /* Slightly rounded edges for inputs */
+    padding: 10px; /* Padding inside inputs */
+}
+
+
+input.form-control:focus {
+    border-color: var(--muted-color); /* Highlight border on focus */
+    box-shadow: 0 0 0 0.2rem var(--secondary-color); /* Light blue shadow on focus */
+}
+
+.btn-primary {
+    margin-top: 10px; /* Space above the button */
+}
+
+.google-btn {
+    background-color: #db4437; /* Google red */
+    color: white; /* White text */
+    border: none; /* No border */
+}
+
+.alert {
+    margin-top: 10px; /* Space above the alert */
+}
+
+.alternative-login {
+    margin-top: 20px; /* Space above alternative login section */
 }
 
 .registerMessage {
-    margin-top: 10vh;
+    margin-top: 20px; /* Space above the register message */
+}
+
+.loginText {
+    color: blue; /* Or any color for the register link */
+    cursor: pointer;
+}
+
+
+.animation-container {
+    width: 40%; /* 40% for the animation side */
+    height: 100vh; /* Full height */
+    /* Add your animation styles here */
+    background-color: green;
 }

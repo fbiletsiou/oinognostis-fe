@@ -1,27 +1,21 @@
-import React,{ useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { ACCESS_TOKEN_NAME, API_BASE_URL } from '../../constants/apiConstants';
-import axios from 'axios'
+
 function Home(props) {
-    useEffect(() => {
-        axios.get(API_BASE_URL+'/user/me', { headers: { 'token': localStorage.getItem(ACCESS_TOKEN_NAME) }})
-        .then(function (response) {
-            if(response.status !== 200){
-              redirectToLogin()
-            }
-        })
-        .catch(function (error) {
-          redirectToLogin()
-        });
-      },[])
-    function redirectToLogin() {
-    props.history.push('/login');
-    }
-    return(
+
+    return (
         <div className="mt-2">
-            Home page content
+            <h1>Welcome to Oinognostis</h1>
+            <p>
+                Discover the rich world of wines! From deep reds to crisp whites, wines offer a unique taste experience that can enhance any meal or occasion.
+                Whether you're a connoisseur or just beginning your journey, there's a bottle out there for everyone. Explore different varieties, learn about
+                the winemaking process, and find your perfect pour.
+            </p>
+            <p>
+                Join us as we celebrate the art of winemaking and the joy it brings to our lives. Cheers to new discoveries and memorable moments!
+            </p>
         </div>
-    )
+    );
 }
 
 export default withRouter(Home);
