@@ -23,7 +23,7 @@ function Header(props) {
             return (
                 <div className="ml-auto">
                     <Link to="/login" className="btn-big">Login</Link> {}
-                    <Link to="/signup" className="btn-big ml-2">Signup</Link> {}
+                    <Link to="/register" className="btn-big ml-2">Signup</Link> {}
                 </div>
             );
         } else {

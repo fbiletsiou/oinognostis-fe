@@ -1,94 +1,193 @@
-.login-form-container {
+.login-form {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: var(--header-font-color);
 }
 
-.login-form-wrapper {
-    flex: 0 0 60%; /* 60% width for the login form */
-    background-color: #fff; /* White background for contrast */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    padding: 20px; /* Padding inside the card */
-    margin: auto; /* Center the card */
+.login-form__container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 }
 
-.animation-container {
-    flex: 0 0 40%; /* 40% width for the animation */
-    background-color: #f8f9fa; /* Light background for the animation area */
-    display: flex; /* Flexbox for centering animations */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    /* Add animation styles or a placeholder for your animation here */
+.login-form__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-h2 {
-    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    text-align: center; /* Center the title */
+.login-form__animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px 0 0 12px;
+    padding: 30px;
+    position: relative;
+}
+
+
+.login-form__wrapper,
+.login-form__animation {
+    flex: 1 1 50%;
+}
+
+.login-form__animation-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.attribution-link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 8px;
+    color: rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.login-form__animation:hover .attribution-link {
+    opacity: 1;
+}
+
+.login-form__title {
+    font-family:  'Roobert', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
     color: var(--dark-burgundy);
-    margin-bottom: 20px; /* Space below the title */
+    margin-bottom: 10px;
 }
 
-.form-group {
-    margin-bottom: 15px; /* Space between form fields */
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px; /* Spacing between label and input */
+.login-form__subtitle {
+    font-family: 'Roobert', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
     color: var(--dark-burgundy);
-    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-weight: bold; /* Bold labels */
+    margin-bottom: 20px;
 }
 
-
-input.form-control {
-    width: 75%;
-
+.login-form__input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
     border: 1px solid var(--primary-color);
-    border-radius: 4px; /* Slightly rounded edges for inputs */
-    padding: 10px; /* Padding inside inputs */
+    border-radius: 8px;
+    box-shadow: none;
+    margin-bottom: 10px;
 }
 
-
-input.form-control:focus {
-    border-color: var(--muted-color); /* Highlight border on focus */
-    box-shadow: 0 0 0 0.2rem var(--secondary-color); /* Light blue shadow on focus */
+.login-form__input:focus {
+    border-color: var(--muted-color);
+    box-shadow: 0 0 0  2px var(--secondary-color);
 }
 
-.btn-primary {
-    margin-top: 10px; /* Space above the button */
+.login-form__password-recovery {
+    text-align: right;
+    margin-bottom: 15px;
 }
 
-.google-btn {
-    background-color: #db4437; /* Google red */
-    color: white; /* White text */
-    border: none; /* No border */
-}
-
-.alert {
-    margin-top: 10px; /* Space above the alert */
-}
-
-.alternative-login {
-    margin-top: 20px; /* Space above alternative login section */
-}
-
-.registerMessage {
-    margin-top: 20px; /* Space above the register message */
-}
-
-.loginText {
-    color: blue; /* Or any color for the register link */
+.login-form__link {
+    font-size: 14px;
+    color: var(--deep-red-wine);
     cursor: pointer;
+    text-decoration: none;
+}
+
+.login-form__submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--deep-red-wine);
+    border: none;
+    color: var(--header-font-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-form__submit-btn:hover {
+    background-color: var(--rich-merlot);
 }
 
 
-.animation-container {
-    width: 40%; /* 40% for the animation side */
-    height: 100vh; /* Full height */
-    /* Add your animation styles here */
-    background-color: green;
+.login-form__alert {
+    display: block;
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.login-form__alternative {
+    align-items: center;
+    margin-top: 20px;
+}
+
+.login-form__alternative p {
+    margin-bottom: 10px;
+    color: var(--dark-burgundy);
+}
+
+.login-form__alt-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-form__google-btn,
+.login-form__alt-btn {
+    background-color: var(--deep-red-wine);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-form__google-btn:hover,
+.login-form__alt-btn:hover {
+    background-color: var(--rich-merlot);
+}
+
+.login-form__register {
+    font-size: 14px;
+    color: #888888;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-form__register-link {
+    color: var(--deep-red-wine);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
