@@ -6,8 +6,8 @@ import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import AlertComponent from './components/AlertComponent/AlertComponent';
 import HomePage from './components/Home/HomePage';
+import Footer from './components/Footer/Footer';
 
-// import PrivateRoute from './utils/PrivateRoute';
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,6 +34,8 @@ function App() {
           </Switch>
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
         </div>
+      <Footer />
+
     </div>
     </Router>
   );
