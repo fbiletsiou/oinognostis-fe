@@ -5,6 +5,7 @@ import './LoginForm.css';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import { withRouter } from "react-router-dom";
 import { RiGoogleLine, RiFacebookLine, RiAppleLine  } from "react-icons/ri";
+import { IoEyeOffOutline, IoEyeOutline  } from 'react-icons/io5';
 
 function LoginForm(props) {
     const [state, setState] = useState({
@@ -12,6 +13,7 @@ function LoginForm(props) {
         password: "",
         successMessage: null
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -64,6 +66,11 @@ function LoginForm(props) {
         console.log('Login with Google');
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
+
     return (
         <main className="login-form">
             <div className="login-form__container">
@@ -83,9 +90,9 @@ function LoginForm(props) {
                                 required
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group password-field">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="login-form__input"
                                 id="password"
                                 placeholder="Password"
@@ -93,12 +100,20 @@ function LoginForm(props) {
                                 onChange={handleChange}
                                 required
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={togglePasswordVisibility}
+                                aria-label="Toggle password visibility"
+                            >
+                                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                            </button>
                         </div>
                         <div className="login-form__password-recovery">
                             <a href="#" className="login-form__link">Forgot Password?</a>
                         </div>
 
-                        <button type="submit" className="login-form__submit-btn">Sign In</button>
+                        <button type="submit" className="submit-btn">Sign In</button>
                     </form>
 
                     {state.successMessage && (

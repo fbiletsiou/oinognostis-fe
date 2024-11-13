@@ -5,6 +5,7 @@ import {API_BASE_URL, ACCESS_TOKEN_NAME} from '../../constants/apiConstants';
 import { withRouter } from "react-router-dom";
 import PeopleQueueAnimation from '../../assets/queue_people.svg';
 import {RiAppleLine, RiFacebookLine, RiGoogleLine} from "react-icons/ri";
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 
 function RegistrationForm(props) {
     const [state , setState] = useState({
@@ -14,6 +15,10 @@ function RegistrationForm(props) {
         userName: "",
         successMessage: null
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
     const handleChange = (e) => {
         const {id , value} = e.target
@@ -78,6 +83,10 @@ function RegistrationForm(props) {
         console.log('Login with Google');
     };
 
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
+
+
     return (
         <main className="registration-form">
             <div className="registration-form__container">
@@ -107,9 +116,9 @@ function RegistrationForm(props) {
                                 required
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group password-field">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="registration-form__input"
                                 id="password"
                                 placeholder="Password"
@@ -117,10 +126,19 @@ function RegistrationForm(props) {
                                 onChange={handleChange}
                                 required
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={togglePasswordVisibility}
+                                aria-label="Toggle password visibility"
+                            >
+                                {showPassword ? <IoEyeOffOutline/> : <IoEyeOutline/>}
+                            </button>
                         </div>
-                        <div className="form-group">
+
+                        <div className="form-group password-field">
                             <input
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"}
                                 className="registration-form__input"
                                 id="confirmPassword"
                                 placeholder="Confirm Password"
@@ -128,6 +146,14 @@ function RegistrationForm(props) {
                                 onChange={handleChange}
                                 required
                             />
+                            <button
+                                type="button"
+                                className="password-toggle-btn"
+                                onClick={toggleConfirmPasswordVisibility}
+                                aria-label="Toggle confirm password visibility"
+                            >
+                                {showConfirmPassword ? <IoEyeOffOutline/> : <IoEyeOutline/>}
+                            </button>
                         </div>
 
                         <p className="registration-form__terms">
@@ -136,7 +162,7 @@ function RegistrationForm(props) {
                             Use</a> and <a href="/privacy" className="registration-form__link">Privacy Policy</a>.
                         </p>
 
-                        <button type="submit" className="registration-form__submit-btn">
+                        <button type="submit" className="submit-btn">
                             Sign Up
                         </button>
                     </form>
