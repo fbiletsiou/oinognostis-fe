@@ -146,27 +146,6 @@
     gap: 10px;
 }
 
-.login-form__google-btn,
-.login-form__alt-btn {
-    background-color: var(--deep-red-wine);
-    color: white;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.login-form__google-btn:hover,
-.login-form__alt-btn:hover {
-    background-color: var(--rich-merlot);
-}
-
 .login-form__register {
     font-size: 14px;
     color: #888888;

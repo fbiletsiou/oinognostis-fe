@@ -3,6 +3,8 @@ import axios from 'axios';
 import './RegistrationForm.css';
 import {API_BASE_URL, ACCESS_TOKEN_NAME} from '../../constants/apiConstants';
 import { withRouter } from "react-router-dom";
+import PeopleQueueAnimation from '../../assets/queue_people.svg';
+import {RiAppleLine, RiFacebookLine, RiGoogleLine} from "react-icons/ri";
 
 function RegistrationForm(props) {
     const [state , setState] = useState({
@@ -11,14 +13,25 @@ function RegistrationForm(props) {
         confirmPassword: "",
         userName: "",
         successMessage: null
-    })
+    });
+
     const handleChange = (e) => {
         const {id , value} = e.target
         setState(prevState => ({
             ...prevState,
             [id] : value
-        }))
-    }
+        }));
+    };
+
+    const handleSubmitClick = (e) => {
+        e.preventDefault();
+        if (state.password === state.confirmPassword) {
+            sendDetailsToServer();
+        } else {
+            props.showError('Passwords do not match');
+        }
+    };
+
     const sendDetailsToServer = () => {
         if(state.email.length && state.password.length) {
             props.showError(null);
@@ -26,108 +39,148 @@ function RegistrationForm(props) {
                 "email":state.email,
                 "password":state.password,
                 "name": state.userName
-            }
+            };
             axios.post(API_BASE_URL+'/user/register', payload)
                 .then(function (response) {
                     if(response.status === 200){
                         setState(prevState => ({
                             ...prevState,
                             'successMessage' : 'Registration successful. Redirecting to home page..'
-                        }))
-                        localStorage.setItem(ACCESS_TOKEN_NAME,response.data.token);
+                        }));
+                        localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
                         redirectToHome();
                         props.showError(null)
-                    } else{
-                        props.showError("Some error ocurred");
+                    } else {
+                        props.showError("Some error occurred");
                     }
                 })
                 .catch(function (error) {
                     console.log(error);
+                    props.showError('An error occurred during registration. Please try again.');
                 });
         } else {
             props.showError('Please enter valid username and password')
         }
+    };
 
-    }
     const redirectToHome = () => {
-        props.updateTitle('Home')
-        props.history.push('/home');
-    }
-    const redirectToLogin = () => {
-        props.updateTitle('Login')
-        props.history.push('/login');
-    }
-    const handleSubmitClick = (e) => {
-        e.preventDefault();
-        if(state.password === state.confirmPassword) {
-            sendDetailsToServer()
-        } else {
-            props.showError('Passwords do not match');
-        }
-    }
-    return(
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
-            <form>
-                <div className="form-group text-left">
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">User Name</label>
-                    <input type="text"
-                        className="form-control"
-                        id="userName"
-                        placeholder="Add User Name"
-                        value={state.userName}
-                        onChange={handleChange}
-                    />
-                </div>
-                <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email"
-                       className="form-control"
-                       id="email"
-                       aria-describedby="emailHelp"
-                       placeholder="Enter email"
-                       value={state.email}
-                       onChange={handleChange}
-                />
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Password"
-                        value={state.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Confirm Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={state.confirmPassword}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={handleSubmitClick}
-                >
-                    Register
-                </button>
-            </form>
-            <div className="alert alert-success mt-2" style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
-                {state.successMessage}
-            </div>
-            <div className="mt-2">
-                <span>Already have an account? </span>
-                <span className="loginText" onClick={() => redirectToLogin()}>Login here</span>
-            </div>
+        document.title = 'Home';
+        props.history.push('/');
+    };
 
-        </div>
-    )
+    const redirectToLogin = () => {
+        document.title = 'Login';
+        props.history.push('/login');
+    };
+
+    const handleGoogleLogin = () => {
+        // Add logic for Google login
+        console.log('Login with Google');
+    };
+
+    return (
+        <main className="registration-form">
+            <div className="registration-form__container">
+                <div className="registration-form__wrapper">
+                    <h2 className="registration-form__title">hey.</h2>
+                    <h3 className="registration-form__subtitle">Join the club today</h3>
+                    <form onSubmit={handleSubmitClick}>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="registration-form__input"
+                                id="fullName"
+                                placeholder="Full Name"
+                                value={state.fullName}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="email"
+                                className="registration-form__input"
+                                id="email"
+                                placeholder="Email"
+                                value={state.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                className="registration-form__input"
+                                id="password"
+                                placeholder="Password"
+                                value={state.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                className="registration-form__input"
+                                id="confirmPassword"
+                                placeholder="Confirm Password"
+                                value={state.confirmPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+
+                        <p className="registration-form__terms">
+                            By signing up, you agree to our <a href="/terms" className="registration-form__link">Terms
+                            of
+                            Use</a> and <a href="/privacy" className="registration-form__link">Privacy Policy</a>.
+                        </p>
+
+                        <button type="submit" className="registration-form__submit-btn">
+                            Sign Up
+                        </button>
+                    </form>
+
+                    {state.successMessage && (
+                        <div className="registration-form__alert">
+                            {state.successMessage}
+                        </div>
+                    )}
+
+                    <div className="registration-form__alternative">
+                        <p>QUICK ACCESS</p>
+                        <div className="registration-form__alt-buttons">
+                            <button onClick={handleGoogleLogin} className="alt-login-btn">
+                                <RiGoogleLine size={20}/>
+                            </button>
+                            <button className="alt-login-btn">
+                                <RiFacebookLine size={20}/>
+                            </button>
+                            <button className="alt-login-btn">
+                                <RiAppleLine size={20}/>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="registration-form__login">
+                        <span>Already have an account? </span>
+                        <span className="registration-form__login-link" onClick={redirectToLogin}>
+                            Login
+                        </span>
+                    </div>
+                </div>
+
+                <div className="registration-form__animation">
+                    <img src={PeopleQueueAnimation} alt="People animation"
+                         className="registration-form__animation-img"/>
+                    <a href="https://storyset.com/people" className="attribution-link" target="_blank"
+                       rel="noopener noreferrer">
+                        People illustrations by Storyset
+                    </a>
+                </div>
+            </div>
+        </main>
+    );
 }
 
 export default withRouter(RegistrationForm);

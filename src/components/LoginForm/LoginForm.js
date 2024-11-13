@@ -110,14 +110,13 @@ function LoginForm(props) {
                     <div className="login-form__alternative">
                         <p>Or continue with:</p>
                         <div className="login-form__alt-buttons">
-
-                            <button onClick={handleGoogleLogin} className="login-form__google-btn">
+                            <button onClick={handleGoogleLogin} className="alt-login-btn">
                                 <RiGoogleLine size={20}/>
                             </button>
-                            <button className="login-form__alt-btn">
+                            <button className="alt-login-btn">
                                 <RiFacebookLine size={20}/>
                             </button>
-                            <button className="login-form__alt-btn">
+                            <button className="alt-login-btn">
                                 <RiAppleLine size={20}/>
                             </button>
                         </div>
