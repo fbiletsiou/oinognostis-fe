@@ -1,8 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 function Home(props) {
-
     return (
         <div className="mt-2">
             <h1>Welcome to Oinognostis</h1>
@@ -18,4 +16,4 @@ function Home(props) {
     );
 }
 
-export default withRouter(Home);
+export default Home;

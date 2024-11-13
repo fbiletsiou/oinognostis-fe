@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import './Header.css';
 
-function Header(props) {
-
- let title = 'oinognostis';
+function Header() {
+    let title = 'oinognostis';
 
     function renderLogout() {
         return(
@@ -16,21 +15,19 @@ function Header(props) {
     }
 
     function renderAuthButtons() {
-        // Check if the user is logged in
         const isLoggedIn = !!localStorage.getItem(ACCESS_TOKEN_NAME);
 
         if (!isLoggedIn) {
             return (
                 <div className="ml-auto">
-                    <Link to="/login" className="btn-big">Login</Link> {}
-                    <Link to="/register" className="btn-big ml-2">Signup</Link> {}
+                    <Link to="/login" className="btn-big">Login</Link>
+                    <Link to="/register" className="btn-big ml-2">Signup</Link>
                 </div>
             );
         } else {
-            return renderLogout(); // If logged in, show logout button
+            return renderLogout();
         }
     }
-
 
     function handleLogout() {
         localStorage.removeItem(ACCESS_TOKEN_NAME)
@@ -49,4 +46,4 @@ function Header(props) {
     );
 }
 
-export default withRouter(Header);
+export default Header;

@@ -3,11 +3,12 @@ import PeopleDrinkingWineAnimation from '../../assets/people_drinking_wine_anima
 import axios from 'axios';
 import './LoginForm.css';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RiGoogleLine, RiFacebookLine, RiAppleLine  } from "react-icons/ri";
 import { IoEyeOffOutline, IoEyeOutline  } from 'react-icons/io5';
 
 function LoginForm(props) {
+    const navigate = useNavigate();
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -52,13 +53,13 @@ function LoginForm(props) {
     };
 
     const redirectToHome = () => {
-        document.title = "Home";
-        props.history.push('/');
+        document.title = 'Home';
+        navigate('/');
     };
 
     const redirectToRegister = () => {
-        document.title = "Register";
-        props.history.push('/register');
+        document.title = 'Register';
+        navigate('/register');
     };
 
     const handleGoogleLogin = () => {
@@ -110,7 +111,7 @@ function LoginForm(props) {
                             </button>
                         </div>
                         <div className="login-form__password-recovery">
-                            <a href="#" className="login-form__link">Forgot Password?</a>
+                            <a href="google.com" className="login-form__link">Forgot Password?</a>
                         </div>
 
                         <button type="submit" className="submit-btn">Sign In</button>
@@ -157,4 +158,4 @@ function LoginForm(props) {
     );
 }
 
-export default withRouter(LoginForm);
+export default LoginForm;

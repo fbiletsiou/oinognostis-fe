@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
 import {API_BASE_URL, ACCESS_TOKEN_NAME} from '../../constants/apiConstants';
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PeopleQueueAnimation from '../../assets/queue_people.svg';
 import {RiAppleLine, RiFacebookLine, RiGoogleLine} from "react-icons/ri";
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 
 function RegistrationForm(props) {
+    const navigate = useNavigate();
+
     const [state , setState] = useState({
         email : "",
         password : "",
@@ -70,12 +72,12 @@ function RegistrationForm(props) {
 
     const redirectToHome = () => {
         document.title = 'Home';
-        props.history.push('/');
+        navigate('/');
     };
 
     const redirectToLogin = () => {
         document.title = 'Login';
-        props.history.push('/login');
+        navigate('/login');
     };
 
     const handleGoogleLogin = () => {
@@ -209,4 +211,4 @@ function RegistrationForm(props) {
     );
 }
 
-export default withRouter(RegistrationForm);
+export default RegistrationForm;
