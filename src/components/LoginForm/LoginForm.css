@@ -1,10 +1,14 @@
 .login-form {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background-color: var(--header-font-color);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .login-form__container {
@@ -18,10 +22,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
 }
 
 .login-form__animation {
@@ -168,3 +174,4 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
