@@ -99,7 +99,7 @@
 
 .registration-form__alert {
     display: block;
-    color: green;
+    color: var(--dark-burgundy);
     font-size: 14px;
     margin-top: 10px;
     text-align: center;

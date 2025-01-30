@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PeopleDrinkingWineAnimation from '../../assets/people_drinking_wine_animation.svg';
-import axios from 'axios';
 import './LoginForm.css';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
+import axiosInstance from "../../utils/axiosInstance";
+
 import { useNavigate } from "react-router-dom";
 import { RiGoogleLine, RiFacebookLine, RiAppleLine  } from "react-icons/ri";
 import { IoEyeOffOutline, IoEyeOutline  } from 'react-icons/io5';
@@ -24,32 +25,44 @@ function LoginForm(props) {
         }));
     };
 
-    const handleSubmitClick = (e) => {
+    const handleSubmitClick = async (e) => {
         e.preventDefault();
         const payload = {
-            "email": state.email,
-            "password": state.password,
+            email: state.email,
+            password: state.password,
         };
-        axios.post(API_BASE_URL + '/user/login', payload)
-            .then(response => {
-                if (response.status === 200) {
-                    setState(prevState => ({
-                        ...prevState,
-                        successMessage: 'Login successful. Redirecting to home page...'
-                    }));
-                    localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
-                    redirectToHome();
-                    props.showError(null);
-                } else if (response.code === 204) {
-                    props.showError("Username and password do not match");
-                } else {
-                    props.showError("Username does not exist");
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                props.showError("An error occurred during login. Please try again.");
-            });
+
+        console.log(payload);
+        try {
+            const response = await axiosInstance.post(`/auth/login/`, payload);
+
+            console.log(response);
+            if (response.status === 200) {
+                const { access, refresh } = response.data;
+
+                // Store tokens in localStorage
+                localStorage.setItem(`${ACCESS_TOKEN_NAME}`, access);
+                localStorage.setItem("refresh_token", refresh);
+
+                setState((prevState) => ({
+                    ...prevState,
+                    successMessage: "Login successful. Redirecting to home page...",
+                }));
+
+                redirectToHome();
+            } else {
+                props.showError("Invalid email or password.");
+            }
+        } catch (error) {
+            console.log(error.response);
+            console.error(error);
+            // Handle errors gracefully
+            const errorMessage =
+                error.response?.data?.detail ||
+                "An unexpected error occurred. Please try again.";
+            props.showError(errorMessage);
+        }
+
     };
 
     const redirectToHome = () => {

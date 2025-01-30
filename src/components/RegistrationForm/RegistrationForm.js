@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import axios from 'axios';
-import './RegistrationForm.css';
-import {API_BASE_URL, ACCESS_TOKEN_NAME} from '../../constants/apiConstants';
 import { useNavigate } from "react-router-dom";
-import PeopleQueueAnimation from '../../assets/queue_people.svg';
 import {RiAppleLine, RiFacebookLine, RiGoogleLine} from "react-icons/ri";
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
+
+import './RegistrationForm.css';
+import PeopleQueueAnimation from '../../assets/queue_people.svg';
+import axiosInstance from "../../utils/axiosInstance";
 
 function RegistrationForm(props) {
     const navigate = useNavigate();
@@ -14,7 +14,8 @@ function RegistrationForm(props) {
         email : "",
         password : "",
         confirmPassword: "",
-        userName: "",
+        first_name: "",
+        last_name: "",
         successMessage: null
     });
 
@@ -39,40 +40,58 @@ function RegistrationForm(props) {
         }
     };
 
-    const sendDetailsToServer = () => {
-        if(state.email.length && state.password.length) {
+    const sendDetailsToServer = async () => {
+        if(state.email.length && state.password.length && state.first_name.length && state.last_name.length) {
             props.showError(null);
-            const payload={
-                "email":state.email,
-                "password":state.password,
-                "name": state.userName
-            };
-            axios.post(API_BASE_URL+'/user/register', payload)
-                .then(function (response) {
-                    if(response.status === 200){
-                        setState(prevState => ({
-                            ...prevState,
-                            'successMessage' : 'Registration successful. Redirecting to home page..'
-                        }));
-                        localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
-                        redirectToHome();
-                        props.showError(null)
-                    } else {
-                        props.showError("Some error occurred");
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    props.showError('An error occurred during registration. Please try again.');
-                });
-        } else {
-            props.showError('Please enter valid username and password')
-        }
-    };
 
-    const redirectToHome = () => {
-        document.title = 'Home';
-        navigate('/');
+            const payload={
+                email: state.email,
+                password1: state.password,
+                password2: state.confirmPassword,
+                first_name: state.first_name,
+                last_name: state.last_name
+            };
+
+            try {
+                const response = await axiosInstance.post('/api/v1/auth/registration/', payload);
+
+            if (response.status === 204) {
+                setState((prevState) => ({
+                    ...prevState,
+                    successMessage: "Registration successful. Redirecting to login...",
+                }));
+
+                setTimeout(() => redirectToLogin(), 2000); // Redirect after success
+                } else {
+                props.showError("Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                console.error(error);
+
+                // Handle errors gracefully
+                const errorMessage = error.response?.data?.detail || "An unexpected error occurred. Please try again.";
+                if (error.response?.data) {
+                    // Extract the validation error messages
+                    const validationErrors = error.response.data;
+
+                    let formattedErrorMessages = "";
+                    // Loop through all fields with errors and format the messages
+                    for (const [field, messages] of Object.entries(validationErrors)) {
+                        formattedErrorMessages += `${field}: ${messages.join(", ")}\n`;
+                    }
+
+                    console.log("Formatted Errors: ", formattedErrorMessages);
+
+                    // Show formatted error messages
+                    props.showError(formattedErrorMessages);
+                } else {
+                    props.showError("An unexpected error occurred. Please try again.");
+                }
+            }
+
+        } else {
+            props.showError('Please fill in all fields.')
+        }
     };
 
     const redirectToLogin = () => {
@@ -100,9 +119,18 @@ function RegistrationForm(props) {
                             <input
                                 type="text"
                                 className="registration-form__input"
-                                id="fullName"
-                                placeholder="Full Name"
-                                value={state.fullName}
+                                id="first_name"
+                                placeholder="First Name"
+                                value={state.first_name}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                className="registration-form__input"
+                                id="last_name"
+                                placeholder="Last Name"
+                                value={state.last_name}
                                 onChange={handleChange}
                                 required
                             />
